@@ -11,12 +11,13 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Ronan Guérin",
+            "name": "ronangr1",
             "email": "guerin.ronan@proton.me"
         }
     ],
     "require": {
-        "magento/framework": "*"
+        "php": ">=8.1",
+        "ronangr1/module-core": "*"
     },
     "autoload": {
         "files": [
