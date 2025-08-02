@@ -8,9 +8,6 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <tab id="ronangr1" sortOrder="999" translate="label">
-            <label>Ronangr1</label>
-        </tab>
         <section id="barbagento" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label">
             <label>Barbagento</label>
             <tab>ronangr1</tab>
