@@ -1,0 +1,19 @@
+<?php
+/**
+ * @var \Magento\Framework\View\Element\Template $block
+ * @var \Ronangr1\Barbagento\ViewModel\Init $viewModel
+ */
+
+$viewModel = $block->getData('view_model');
+$settings = $viewModel->getSettings();
+?>
+
+<!-- Google Tag Manager Extra -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $settings->getGtagId() ?>"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', '<?= $settings->getGtagId() ?>');
+</script>
+<!-- End Google Tag Manager Extra -->

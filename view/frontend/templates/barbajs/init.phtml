@@ -7,19 +7,32 @@
 /**
  * @var \Magento\Framework\View\Element\Template $block
  * @var \Ronangr1\Barbagento\ViewModel\Init $viewModel
+ * @var \Magento\Framework\Escaper $escaper
+ * @var Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 
 $viewModel = $block->getData('view_model');
 $settings = $viewModel->getSettings();
 ?>
-<script>
+
+<?php
+$debug = $settings->getDebug();
+$timeout = $settings->getTimeout();
+$excludedPages = $settings->getExcludedPages();
+$gtagEnable = $settings->getGtagEnable();
+$gtagId = $settings->getGtagId();
+
+$scriptString = <<<script
     require(['Ronangr1_Barbagento/js/barba-init'], function (MagentoBarba) {
         const config = {
-            debug: <?= $settings['debug'] ?>,
-            timeout: <?= $settings['timeout'] ?>,
-            excludedPages: <?= $settings['excludedPages'] ?>,
+            debug: '$debug',
+            timeout: '$timeout',
+            excludedPages: $excludedPages,
+            gtagEnable: '$gtagEnable',
+            gtagId: '$gtagId',
         }
-
         MagentoBarba.init(config);
-    })
-</script>
+    });
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
