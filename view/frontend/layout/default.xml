@@ -10,6 +10,18 @@
     <body>
         <attribute name="data-barba" value="wrapper"/>
     </body>
+    <referenceContainer name="head.additional">
+        <block class="Magento\Framework\View\Element\Template" name="gtm.head"
+               template="Ronangr1_Barbagento::head/gtag.phtml"
+               ifconfig="barbagento/google_tag_manager/enable"
+               before="-">
+            <arguments>
+                <argument name="view_model" xsi:type="object">
+                    Ronangr1\Barbagento\ViewModel\Init
+                </argument>
+            </arguments>
+        </block>
+    </referenceContainer>
     <referenceContainer name="before.body.end">
         <block class="Magento\Framework\View\Element\Template" name="barbajs.init"
                template="Ronangr1_Barbagento::barbajs/init.phtml"

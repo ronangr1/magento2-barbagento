@@ -7,6 +7,7 @@ declare(strict_types=1);
 
 namespace Ronangr1\Barbagento\ViewModel;
 
+use Magento\Framework\DataObject;
 use Magento\Framework\View\Element\Block\ArgumentInterface;
 use Ronangr1\Barbagento\Model\Config;
 
@@ -18,8 +19,15 @@ class Init implements ArgumentInterface
     {
     }
 
-    public function getSettings(): array
+    public function getSettings(): DataObject
     {
-        return $this->config->getSettings();
+        $arraySettings = $this->config->getSettings();
+        return new DataObject([
+            'debug' => $arraySettings['general']['debug'],
+            'timeout' => $arraySettings['general']['timeout'],
+            'excluded_pages' => $arraySettings['general']['excludedPages'],
+            'gtag_enable' => $arraySettings['google_tag_manager']['enable'],
+            'gtag_id' => $arraySettings['google_tag_manager']['gtagId'],
+        ]);
     }
 }

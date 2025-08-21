@@ -37,6 +37,18 @@
                     <comment>Separated by commas. Eg: checkout, cart, customer.</comment>
                 </field>
             </group>
+            <group id="google_tag_manager" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+                <label>Google Tag Manager</label>
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>barbagento/google_tag_manager/enable</config_path>
+                </field>
+                <field id="gtag_id" translate="text" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                    <label>GTAG ID</label>
+                    <config_path>barbagento/google_tag_manager/gtag_id</config_path>
+                </field>
+            </group>
         </section>
     </system>
 </config>
