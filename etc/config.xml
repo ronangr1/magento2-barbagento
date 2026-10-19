@@ -17,6 +17,10 @@
                 <timeout>7000</timeout>
                 <excluded_pages><![CDATA[checkout, cart, customer/account]]></excluded_pages>
             </settings>
+            <google_tag_manager>
+                <enable>0</enable>
+                <gtag_id></gtag_id>
+            </google_tag_manager>
         </barbagento>
     </default>
 </config>

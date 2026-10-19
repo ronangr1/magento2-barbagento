@@ -8,43 +8,53 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
-        <section id="barbagento" showInDefault="1" showInStore="0" showInWebsite="0" sortOrder="10" translate="label">
+        <section id="barbagento" showInDefault="1" showInStore="1" showInWebsite="1"
+                 sortOrder="10" translate="label">
             <label>Barbagento</label>
             <tab>ronangr1</tab>
             <resource>Ronangr1_Barbagento::config_system</resource>
-            <group id="general" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="general" translate="label comment" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
                 <label>General</label>
-                <field id="is_active" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="is_active" translate="label" type="select" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <config_path>barbagento/general/is_active</config_path>
                 </field>
             </group>
-            <group id="settings" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="settings" translate="label comment" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
                 <label>Settings</label>
-                <field id="debug" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="debug" translate="label" type="select" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
                     <label>Debug</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <config_path>barbagento/settings/debug</config_path>
                 </field>
-                <field id="timeout" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="timeout" translate="label" type="text" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
                     <label>Timeout</label>
                     <config_path>barbagento/settings/timeout</config_path>
                 </field>
-                <field id="excluded_pages" translate="textarea" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="excluded_pages" translate="label comment" type="text" sortOrder="0"
+                       showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Excluded Pages</label>
-                    <config_path>barbagento/settings/excluded_page</config_path>
+                    <config_path>barbagento/settings/excluded_pages</config_path>
                     <comment>Separated by commas. Eg: checkout, cart, customer.</comment>
                 </field>
             </group>
-            <group id="google_tag_manager" translate="label comment" sortOrder="100" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="google_tag_manager" translate="label comment" sortOrder="100" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
                 <label>Google Tag Manager</label>
-                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable" translate="label" type="select" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                     <config_path>barbagento/google_tag_manager/enable</config_path>
                 </field>
-                <field id="gtag_id" translate="text" type="text" sortOrder="0" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="gtag_id" translate="label" type="text" sortOrder="0" showInDefault="1"
+                       showInWebsite="1" showInStore="1">
                     <label>GTAG ID</label>
                     <config_path>barbagento/google_tag_manager/gtag_id</config_path>
                 </field>
