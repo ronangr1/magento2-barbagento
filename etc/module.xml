@@ -11,6 +11,7 @@
         <sequence>
             <module name="Magento_Catalog"/>
             <module name="Magento_Theme"/>
+            <module name="Ronangr1_Core"/>
         </sequence>
     </module>
 </config>

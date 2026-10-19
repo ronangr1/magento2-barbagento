@@ -7,48 +7,65 @@ declare(strict_types=1);
 
 namespace Ronangr1\Barbagento\Observer;
 
-use Magento\Framework\App\RequestInterface;
+use Magento\Framework\App\Request\Http as HttpRequest;
+use Magento\Framework\Escaper;
 use Magento\Framework\Event\Observer;
 use Magento\Framework\Event\ObserverInterface;
 use Ronangr1\Barbagento\Model\Config;
 
 class LayoutSchemaAttributeObserver implements ObserverInterface
 {
+    /**
+     * @param HttpRequest $request
+     * @param Config $config
+     * @param Escaper $escaper
+     */
     public function __construct(
-        private readonly RequestInterface $request,
+        private readonly HttpRequest $request,
         private readonly Config $config,
-    )
-    {
+        private readonly Escaper $escaper
+    ) {
     }
 
+    /**
+     * Add data-barba attributes to main container
+     *
+     * @param Observer $observer
+     * @return void
+     */
     public function execute(Observer $observer): void
     {
-        if (!$this->config->isActive()) {
+        if (!$this->config->isApplicable()) {
             return;
         }
 
-        if ('page.wrapper' !== $observer->getEvent()->getElementName()) {
+        $event = $observer->getEvent();
+        $elementName = $event->getData('element_name');
+
+        if ('page.wrapper' !== $elementName) {
             return;
         }
 
-        $transport = $observer->getEvent()->getTransport();
-        $output = $transport->getOutput();
+        /** @var \Magento\Framework\DataObject|null $transport */
+        $transport = $event->getData('transport');
+        if (!$transport instanceof \Magento\Framework\DataObject) {
+            return;
+        }
+
+        $output = $transport->getData('output');
 
         if (!is_string($output) || '' === $output) {
             return;
         }
 
-        $pattern = '/(<main\s+id="maincontent")/i';
+        $pattern = '/(<main\b[^>]*\bid="maincontent")/i';
 
         if (!preg_match($pattern, $output)) {
             return;
         }
 
-        $namespace = htmlspecialchars(
-            $this->request->getRouteName() ?? 'default',
-            ENT_QUOTES,
-            'UTF-8'
-        );
+        $routeName = (string)($this->request->getRouteName() ?? 'default');
+        $namespace = $this->escaper->escapeHtml($routeName);
 
         $attributesToAdd = sprintf(
             'data-barba="container" data-barba-namespace="%s"',
@@ -60,7 +77,7 @@ class LayoutSchemaAttributeObserver implements ObserverInterface
         $newOutput = preg_replace($pattern, $replacement, $output, 1);
 
         if (null !== $newOutput) {
-            $transport->setOutput($newOutput);
+            $transport->setData('output', $newOutput);
         }
     }
 }

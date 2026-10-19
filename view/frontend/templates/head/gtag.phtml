@@ -1,19 +1,36 @@
-<?php
+<?php declare(strict_types=1);
+/**
+ * Copyright © Ronangr1. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
 /**
  * @var \Magento\Framework\View\Element\Template $block
  * @var \Ronangr1\Barbagento\ViewModel\Init $viewModel
+ * @var \Magento\Framework\Escaper $escaper
+ * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
  */
 
 $viewModel = $block->getData('view_model');
-$settings = $viewModel->getSettings();
-?>
+if (!$viewModel instanceof \Ronangr1\Barbagento\ViewModel\Init) {
+    return;
+}
 
-<!-- Google Tag Manager Extra -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=<?= $settings->getGtagId() ?>"></script>
-<script>
+$settings = $viewModel->getSettings();
+$gtagId = trim((string)$settings->getGtagId());
+if ($gtagId === '') {
+    return;
+}
+
+$escapedGtagIdJs = $escaper->escapeJs($gtagId);
+$escapedSrc = 'https://www.googletagmanager.com/gtag/js?id=' . $escaper->escapeUrl($gtagId);
+
+$gtagScript = <<<script
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', '<?= $settings->getGtagId() ?>');
-</script>
-<!-- End Google Tag Manager Extra -->
+    gtag('config', '{$escapedGtagIdJs}');
+script;
+?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', ['async' => 'async', 'src' => $escapedSrc], '', false) ?>
+<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $gtagScript, false) ?>
