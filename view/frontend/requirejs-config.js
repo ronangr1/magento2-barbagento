@@ -5,7 +5,10 @@
 var config = {
     map: {
         '*': {
-            "barbajs": "Ronangr1_Barbagento/js/barba.umd"
+            barbajs: 'Ronangr1_Barbagento/js/barba.umd'
         }
+    },
+    paths: {
+        barbajs: 'Ronangr1_Barbagento/js/barba.umd'
     }
-}
+};
