@@ -13,21 +13,31 @@ use Ronangr1\Barbagento\Model\Config;
 
 class Init implements ArgumentInterface
 {
+    /**
+     * @param Config $config
+     */
     public function __construct(
         private readonly Config $config
-    )
-    {
+    ) {
     }
 
+    /**
+     * Retrieve settings as DataObject
+     *
+     * @return DataObject
+     */
     public function getSettings(): DataObject
     {
-        $arraySettings = $this->config->getSettings();
-        return new DataObject([
-            'debug' => $arraySettings['general']['debug'],
-            'timeout' => $arraySettings['general']['timeout'],
-            'excluded_pages' => $arraySettings['general']['excludedPages'],
-            'gtag_enable' => $arraySettings['google_tag_manager']['enable'],
-            'gtag_id' => $arraySettings['google_tag_manager']['gtagId'],
-        ]);
+        return $this->config->getSettings();
+    }
+
+    /**
+     * Check if Barbagento is active and applicable to current page
+     *
+     * @return bool
+     */
+    public function isApplicable(): bool
+    {
+        return $this->config->isApplicable();
     }
 }
